@@ -33,7 +33,6 @@ class PaginationAdapter(private val retry: () -> Unit) : LoadStateAdapter<Pagina
                 tvLoadMore.isVisible = state is LoadState.Error
                 btnLoadMoreRetry.isVisible = state is LoadState.Error
             }
-            binding.root.invalidate()
         }
     }
 }

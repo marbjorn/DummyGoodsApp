@@ -3,5 +3,6 @@ package com.marbjorn.dummygoodsapp.network
 import com.marbjorn.dummygoodsapp.GoodsModel
 
 interface GoodsDao {
-    suspend fun getGoods(startPos : Int, batchSize : Int): List<GoodsModel>
+    suspend fun getAllGoods(startPos : Int, size : Int): List<GoodsModel>
+    suspend fun getSingleGoods(id : Int): GoodsModel
 }

@@ -1,52 +1,36 @@
 package com.marbjorn.dummygoodsapp.network
 
 import android.net.Uri
-import android.util.Log
 import com.marbjorn.dummygoodsapp.GoodsModel
 import com.marbjorn.dummygoodsapp.utils.ResponseUtils
 import org.json.JSONObject
 
 class GoodsDaoImpl : GoodsDao {
+    private val converter = JsonConverter()
 
-    override suspend fun getGoods(skip: Int, limit: Int): List<GoodsModel> {
+    override suspend fun getAllGoods(startPos: Int, size: Int): List<GoodsModel> {
         val builder = Uri.Builder()
         builder.scheme("https")
             .authority(DUMMYJSON_URL)
             .appendPath("products")
-            .appendQueryParameter("skip", skip.toString())
-            .appendQueryParameter("limit", limit.toString())
+            .appendQueryParameter("skip", startPos.toString())
+            .appendQueryParameter("limit", size.toString())
         val rawData = ResponseUtils.rawData(builder.build().toString())
-        val products = JSONObject(rawData).getJSONArray("products")
-        val resultList = mutableListOf<GoodsModel>()
-        for (i in 0 until products.length()) {
-            resultList += convertJsonToGoods(products[i] as JSONObject)
-        }
-        Log.d(TAG, resultList.size.toString())
-        return resultList
+        val wrapper = JSONObject(rawData)
+        return converter.convertJsonToGoodsListWrapper(wrapper).products.map { it.toModel() }
     }
 
-    private fun convertJsonToGoods(obj : JSONObject) : GoodsModel {
-        val imagesList = mutableListOf<String>()
-        val images = obj.getJSONArray("images")
-        for (i in 0 until images.length()) {
-            imagesList += images[i].toString()
-        }
-        val model = GoodsModel(
-            id = obj.getInt("id"),
-            title = obj.getString("title"),
-            description = obj.getString("description"),
-            price = obj.getDouble("price"),
-            images = imagesList,
-            thumbnailUrl = obj.getString("thumbnail")
-        )
-
-        return model
+    override suspend fun getSingleGoods(id: Int): GoodsModel {
+        val builder = Uri.Builder()
+        builder.scheme("https")
+            .authority(DUMMYJSON_URL)
+            .appendPath("products")
+            .appendPath(id.toString())
+        val rawData = ResponseUtils.rawData(builder.build().toString())
+        return converter.convertJsonToGoodsWrapper(JSONObject(rawData)).toModel()
     }
 
     companion object {
-        const val TAG = "GoodsDaoImpl"
         private const val DUMMYJSON_URL = "dummyjson.com"
-        private const val SKIP_PARAM = "skip="
-        private const val LIMIT_PARAM = "limit="
     }
 }

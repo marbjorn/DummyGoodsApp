@@ -21,7 +21,7 @@ data class GoodsListWrapper(
         val thumbnailUrl : String,
         val images : List<String>
     ) {
-        fun GoodsWrapper.toModel() : GoodsModel {
+        fun toModel() : GoodsModel {
             return with (this) {
                 GoodsModel(
                     id = id,
@@ -29,7 +29,10 @@ data class GoodsListWrapper(
                     description = description,
                     images = images,
                     thumbnailUrl = thumbnailUrl,
-                    price = price
+                    price = price,
+                    discountPercentage = discountPercentage,
+                    stock = stock,
+                    rating = rating
                 )
             }
         }

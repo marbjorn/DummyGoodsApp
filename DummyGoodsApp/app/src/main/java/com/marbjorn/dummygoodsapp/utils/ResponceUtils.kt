@@ -1,16 +1,13 @@
 package com.marbjorn.dummygoodsapp.utils
 
-import android.text.format.Time
-import android.util.Log
-import android.util.TimeUtils
+import androidx.paging.PagingSource
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
-import java.util.concurrent.TimeUnit
 
 object ResponseUtils {
     const val TAG = "ResponseHelper"
-    fun rawData(spec : String) : String {
+    fun rawData(spec: String): String {
         var output = ""
         var urlConnection: HttpURLConnection? = null
         try {

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/goods_nav"
+    app:startDestination="@id/goodsListFragment">
+    <fragment
+        android:id="@+id/goodsListFragment"
+        android:name="com.marbjorn.dummygoodsapp.ui.GoodsListFragment"
+        android:label="fragment_goods_list"
+        tools:layout="@layout/fragment_goods_list" >
+        <action
+            android:id="@+id/action_goodsListFragment2_to_goodsInfoFragment2"
+            app:destination="@id/goodsInfoFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:launchSingleTop="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/goodsInfoFragment"
+        android:name="com.marbjorn.dummygoodsapp.ui.GoodsInfoFragment"
+        android:label="fragment_goods_info"
+        tools:layout="@layout/fragment_goods_info" >
+        <argument
+            android:name="model_id"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_goodsInfoFragment_to_goodsListFragment"
+            app:destination="@id/goodsListFragment" />
+    </fragment>
+</navigation>

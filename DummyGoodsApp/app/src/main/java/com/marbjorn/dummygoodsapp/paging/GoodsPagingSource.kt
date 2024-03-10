@@ -5,15 +5,14 @@ import androidx.paging.PagingState
 import com.marbjorn.dummygoodsapp.GoodsModel
 import com.marbjorn.dummygoodsapp.network.GoodsRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.withContext
 
 class GoodsPagingSource(private val repository: GoodsRepository) : PagingSource<Int, GoodsModel>() {
     override fun getRefreshKey(state: PagingState<Int, GoodsModel>): Int? = null
-    override val jumpingSupported: Boolean
-        get() = false
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GoodsModel> {
         return try {
-            withContext(Dispatchers.IO) {
+            withContext(Dispatchers.IO + SupervisorJob()) {
                 val currentPage = params.key ?: 0
                 val data = repository.getGoodsList(currentPage)
                 LoadResult.Page(
