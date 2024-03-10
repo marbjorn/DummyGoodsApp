@@ -1,7 +1,7 @@
 package com.marbjorn.dummygoodsapp
 
 data class GoodsModel(
-    val id : Int,
+    var id : Int,
     val title : String,
     val description : String,
     val price : Double,

@@ -1,15 +1,18 @@
-package com.marbjorn.dummygoodsapp
+package com.marbjorn.dummygoodsapp.utils
 
+import android.text.format.Time
 import android.util.Log
+import android.util.TimeUtils
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.concurrent.TimeUnit
 
-object ResponseHelper {
+object ResponseUtils {
     const val TAG = "ResponseHelper"
     fun rawData(spec : String) : String {
         var output = ""
-        var urlConnection : HttpURLConnection? = null
+        var urlConnection: HttpURLConnection? = null
         try {
             val url = URL(spec)
             urlConnection = url.openConnection() as HttpURLConnection
@@ -21,11 +24,8 @@ object ResponseHelper {
                 data = inputStreamReader.read()
             }
             return output
-        } catch (e : Exception) {
-            Log.e(TAG, e.printStackTrace().toString())
         } finally {
             if (urlConnection != null) urlConnection.disconnect()
         }
-        return output
     }
 }
