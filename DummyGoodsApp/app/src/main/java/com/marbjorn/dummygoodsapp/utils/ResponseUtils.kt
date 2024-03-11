@@ -1,12 +1,10 @@
 package com.marbjorn.dummygoodsapp.utils
 
-import androidx.paging.PagingSource
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
 object ResponseUtils {
-    const val TAG = "ResponseHelper"
     fun rawData(spec: String): String {
         var output = ""
         var urlConnection: HttpURLConnection? = null
@@ -22,7 +20,7 @@ object ResponseUtils {
             }
             return output
         } finally {
-            if (urlConnection != null) urlConnection.disconnect()
+            urlConnection?.disconnect()
         }
     }
 }

@@ -1,29 +1,27 @@
 package com.marbjorn.dummygoodsapp.ui
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import androidx.paging.LoadState
-import com.marbjorn.dummygoodsapp.GoodsInfoViewModel
-import com.marbjorn.dummygoodsapp.R
 import com.marbjorn.dummygoodsapp.databinding.FragmentGoodsInfoBinding
-import com.marbjorn.dummygoodsapp.databinding.FragmentGoodsListBinding
+import com.marbjorn.dummygoodsapp.vm.GoodsInfoViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GoodsInfoFragment : Fragment() {
 
-    private val args : GoodsInfoFragmentArgs by navArgs()
+    private val args: GoodsInfoFragmentArgs by navArgs()
 
     private var _binding: FragmentGoodsInfoBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: GoodsInfoViewModel by viewModels()
+    private val viewModel: GoodsInfoViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentGoodsInfoBinding.inflate(inflater, container, false)
@@ -33,13 +31,12 @@ class GoodsInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.goodsModel.observe(viewLifecycleOwner) {
-            viewModel.setUi(binding, requireContext())
+            viewModel.setUi(binding)
         }
-        viewModel.updateModel(binding, args.modelId)
-
-        binding.btnLoadMoreRetry.setOnClickListener {
+        binding.btnRetry.setOnClickListener {
             viewModel.updateModel(binding, args.modelId)
         }
+        viewModel.updateModel(binding, args.modelId)
     }
 
     override fun onDestroyView() {

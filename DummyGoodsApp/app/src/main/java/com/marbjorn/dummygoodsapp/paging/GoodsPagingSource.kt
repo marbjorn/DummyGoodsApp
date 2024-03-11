@@ -2,11 +2,12 @@ package com.marbjorn.dummygoodsapp.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.marbjorn.dummygoodsapp.GoodsModel
-import com.marbjorn.dummygoodsapp.network.GoodsRepository
+import com.marbjorn.dummygoodsapp.data.GoodsModel
+import com.marbjorn.dummygoodsapp.data.GoodsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.withContext
+import java.net.UnknownHostException
 
 class GoodsPagingSource(private val repository: GoodsRepository) : PagingSource<Int, GoodsModel>() {
     override fun getRefreshKey(state: PagingState<Int, GoodsModel>): Int? = null
@@ -21,7 +22,7 @@ class GoodsPagingSource(private val repository: GoodsRepository) : PagingSource<
                     nextKey = if (data.isEmpty()) null else currentPage.plus(1)
                 )
             }
-        } catch (e : Exception) {
+        } catch (e: UnknownHostException) {
             LoadResult.Error(e)
         }
     }

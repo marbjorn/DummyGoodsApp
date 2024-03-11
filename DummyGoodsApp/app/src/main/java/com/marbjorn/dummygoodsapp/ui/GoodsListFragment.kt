@@ -1,36 +1,32 @@
 package com.marbjorn.dummygoodsapp.ui
 
-import android.opengl.Visibility
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.marbjorn.dummygoodsapp.GoodsListViewModel
 import com.marbjorn.dummygoodsapp.adapter.GoodsAdapter
 import com.marbjorn.dummygoodsapp.adapter.PaginationAdapter
 import com.marbjorn.dummygoodsapp.databinding.FragmentGoodsListBinding
-import com.marbjorn.dummygoodsapp.utils.ConnectivityUtils
+import com.marbjorn.dummygoodsapp.vm.GoodsListViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GoodsListFragment : Fragment() {
 
     private var _binding: FragmentGoodsListBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var rvAdapter : GoodsAdapter
+    private lateinit var rvAdapter: GoodsAdapter
 
-
-    private val viewModel: GoodsListViewModel by viewModels()
+    private val viewModel: GoodsListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,11 +51,15 @@ class GoodsListFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            rvAdapter.loadStateFlow.collect{
+            rvAdapter.loadStateFlow.collect {
                 if (_binding != null) {
                     val state = it.refresh
                     binding.prgBarMovies.isVisible = state is LoadState.Loading
-                    binding.llError.visibility = if (state is LoadState.Error) View.VISIBLE else View.GONE
+                    binding.llError.visibility = if (state is LoadState.Error) {
+                        View.VISIBLE
+                    } else {
+                        View.GONE
+                    }
                 }
             }
         }
@@ -69,15 +69,14 @@ class GoodsListFragment : Fragment() {
         }
 
         binding.rvList.adapter = rvAdapter.withLoadStateFooter(
-            PaginationAdapter{
+            PaginationAdapter {
                 rvAdapter.retry()
             }
         )
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding  = null
+        _binding = null
     }
 }

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DummyGoodsApp</string>
+    <string name="product_title">Product title</string>
+    <string name="product_description">Product description</string>
+    <string name="retry">Retry</string>
+    <string name="check_your_internet_connection_and_retry">Check your internet connection and retry</string>
+</resources>

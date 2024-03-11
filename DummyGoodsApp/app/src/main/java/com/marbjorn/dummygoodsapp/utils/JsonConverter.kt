@@ -1,11 +1,12 @@
-package com.marbjorn.dummygoodsapp.network
+package com.marbjorn.dummygoodsapp.utils
 
+import com.marbjorn.dummygoodsapp.data.GoodsListWrapper
 import org.json.JSONObject
 
 class JsonConverter {
-    fun convertJsonToGoodsListWrapper(obj : JSONObject) : GoodsListWrapper {
+    fun convertJsonToGoodsListWrapper(obj: JSONObject): GoodsListWrapper {
         val products = obj.getJSONArray("products")
-        var goodsWrapperList = emptyList<GoodsListWrapper.GoodsWrapper>()
+        val goodsWrapperList = emptyList<GoodsListWrapper.GoodsWrapper>().toMutableList()
         for (i in 0 until products.length()) {
             goodsWrapperList += convertJsonToGoodsWrapper(products.get(i) as JSONObject)
         }
@@ -18,7 +19,7 @@ class JsonConverter {
         )
     }
 
-    fun convertJsonToGoodsWrapper(obj : JSONObject) : GoodsListWrapper.GoodsWrapper {
+    fun convertJsonToGoodsWrapper(obj: JSONObject): GoodsListWrapper.GoodsWrapper {
         val imagesList = mutableListOf<String>()
         val images = obj.getJSONArray("images")
         for (i in 0 until images.length()) {

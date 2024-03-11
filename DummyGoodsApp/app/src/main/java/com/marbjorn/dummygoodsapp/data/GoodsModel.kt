@@ -1,4 +1,4 @@
-package com.marbjorn.dummygoodsapp
+package com.marbjorn.dummygoodsapp.data
 
 data class GoodsModel(
     var id: Int,
@@ -9,5 +9,5 @@ data class GoodsModel(
     val images: List<String>,
     val rating: Double? = null,
     val discountPercentage: Double? = null,
-    val stock : Int? = null
+    val stock: Int? = null
 )

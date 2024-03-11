@@ -8,7 +8,8 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.marbjorn.dummygoodsapp.databinding.PaginationBinding
 
-class PaginationAdapter(private val retry: () -> Unit) : LoadStateAdapter<PaginationAdapter.ViewHolder>(){
+class PaginationAdapter(private val retry: () -> Unit) :
+    LoadStateAdapter<PaginationAdapter.ViewHolder>() {
 
     private lateinit var binding: PaginationBinding
 

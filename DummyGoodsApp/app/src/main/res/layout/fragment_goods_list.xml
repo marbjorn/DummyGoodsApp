@@ -44,20 +44,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Check your internet connection and retry"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/check_your_internet_connection_and_retry"
         android:layout_marginBottom="16dp"/>
-
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRetry"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_gravity="center"
-        android:text="Retry"/>
+        style="@style/RetryButton"/>
     </LinearLayout>
 
 

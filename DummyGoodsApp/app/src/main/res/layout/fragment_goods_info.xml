@@ -9,7 +9,7 @@
     tools:context=".ui.GoodsInfoFragment">
 
     <androidx.cardview.widget.CardView
-        style="@style/CardViewElevation"
+        style="@style/CustomCardView"
         android:id="@+id/cv_images"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,24 +20,15 @@
             android:layout_width="wrap_content"
             android:layout_height="200dp">
             <LinearLayout
-                android:dividerPadding="10dp"
                 android:id="@+id/image_switcher"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="horizontal" />
         </HorizontalScrollView>
-        <!--        <ImageSwitcher-->
-<!--            android:id="@+id/image_switcher"-->
-<!--            android:layout_width="match_parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            android:layout_height="wrap_content">-->
-<!--        </ImageSwitcher>-->
-    </androidx.cardview.widget.CardView>
+     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        style="@style/CardViewElevation"
+        style="@style/CustomCardView"
         android:id="@+id/cv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,12 +59,13 @@
             android:weightSum="1"
             app:layout_constraintTop_toBottomOf="@id/title">
             <TextView
+                android:textColor="@color/dark_blue"
                 android:id="@+id/price"
                 android:layout_width="0dp"
                 android:padding="8dp"
                 android:layout_height="wrap_content"
                 tools:text="19.89"
-                android:textSize="32dp"
+                android:textSize="32sp"
                 android:gravity="center"
                 android:textStyle="bold"
                 android:layout_weight="0.7"/>
@@ -96,7 +88,7 @@
                     tools:text="-14%"
                     android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
@@ -104,7 +96,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        style="@style/CardViewElevation"
+        style="@style/CustomCardView"
         android:id="@+id/cv_info"
         app:layout_constraintTop_toBottomOf="@id/cv_title"
         app:layout_constraintStart_toStartOf="parent"
@@ -121,10 +113,10 @@
                 android:id="@+id/rating"
                 android:drawableStart="@drawable/rating_star"
                 android:backgroundTint="@color/white"
-                android:text="4.32"
-                android:textSize="16dp"
-                android:textColor="@color/black"
-                android:gravity="left|center"
+                tools:text="4.32"
+                android:textColor="@color/navy_blue"
+                android:textSize="16sp"
+                android:gravity="start|center"
                 android:enabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -134,19 +126,20 @@
                 android:layout_weight="3"
                 android:layout_height="0dp"/>
             <TextView
+                android:textColor="@color/navy_blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textAlignment="textEnd"
                 android:layout_weight="2"
                 android:id="@+id/stock"
-                android:text="Stock: 50" />
+                tools:text="Stock: 50" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        style="@style/CardViewElevation"
+        style="@style/CustomCardView"
         android:id="@+id/cv_descr"
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@id/cv_info"
@@ -156,16 +149,16 @@
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="18dp"
+            android:textSize="18sp"
             tools:text="Product description"/>
 
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/ll_error"
         android:orientation="vertical"
         android:gravity="center"
-        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/cv_descr"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -178,24 +171,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:text="Oppps! please try again!"
+            android:text="@string/check_your_internet_connection_and_retry"
             android:textColor="@color/black"
+            android:layout_marginBottom="10dp"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/prg_bar_load_more" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_load_more_retry"
+            android:id="@+id/btn_retry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:drawableTint="@color/white"
-            android:drawableEnd="@drawable/ic_baseline_autorenew_24"
-            android:fontFamily="sans-serif-light"
-            android:text="Retry"
-            android:textAllCaps="false"
-            android:textSize="14sp"
-            app:cornerRadius="10dp"
+            style="@style/RetryButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_load_more" />
