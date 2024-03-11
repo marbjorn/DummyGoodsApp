@@ -7,7 +7,7 @@ The application is a list of products received via the [DummyJson]("http://dummy
 The following functionality and components have been implemented:
  - UI via Android View
  - Asyncronous operations using Coroutines
- - Networking operations using java.net.URLConnection
+ - Networking operations using java.net.HttpURLConnection
  - Koin for DI
 
 ## Screenshots
